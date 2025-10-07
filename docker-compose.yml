@@ -1,5 +1,4 @@
 # flight_routes/docker-compose.yml
-version: '3.8'
 services:
   web:
     build: .

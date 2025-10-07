@@ -4,6 +4,10 @@ FROM python:3.11-slim
 # set working directory
 WORKDIR /code
 
+# make output unbuffered (helpful for docker logs) and avoid pip cache in image
+ENV PYTHONUNBUFFERED=1
+ENV PIP_NO_CACHE_DIR=1
+
 # system deps for some Python packages if needed
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -11,8 +15,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # copy and install python requirements
 COPY requirements.txt /code/
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+# upgrade pip and install requirements in a single layer
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
 # copy project
 COPY . /code/
