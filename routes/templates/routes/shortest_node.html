@@ -1,0 +1,16 @@
+{% extends 'routes/base.html' %}
+
+{% block content %}
+  <h1>Shortest Route</h1>
+  <p>Placeholder for shortest route search.</p>
+  {% if form %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Search</button>
+    </form>
+  {% endif %}
+  {% if result %}
+    <p>{{ result }}</p>
+  {% endif %}
+{% endblock %}

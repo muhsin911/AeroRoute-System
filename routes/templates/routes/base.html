@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Flight Routes</title>
+</head>
+<body>
+  <h1>Flight Routes System</h1>
+  <nav>
+    <a href="{% url 'routes:home' %}">Home</a> |
+    <a href="{% url 'routes:add_route' %}">Add Route</a> |
+    <a href="{% url 'routes:nth_node' %}">Nth Node</a> |
+    <a href="{% url 'routes:longest_node' %}">Longest Node</a> |
+    <a href="{% url 'routes:shortest_node' %}">Shortest Node</a>
+  </nav>
+  <hr>
+  {% if messages %}
+    {% for message in messages %}
+      <div>{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  {% block content %}{% endblock %}
+</body>
+</html>
