@@ -1,13 +1,30 @@
-# routes/views.py
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import AirportRouteForm, NthNodeSearchForm, ShortestNodeSearchForm
 from .utils import find_nth_node, find_longest_node, find_shortest_route_between
 
+
 def home(request):
+    """
+    Render the home page with general information and navigation.
+    """
     return render(request, 'routes/home.html')
 
+
 def add_route(request):
+    """
+    Handle the form for adding a new AirportRoute.
+
+    For POST requests:
+        - Validate the submitted form data.
+        - If valid, save the new route and copy success message.
+        - Redirect to the add route page (to clear the form and prevent resubmission).
+    
+    For GET requests:
+        - Display an empty form.
+
+    Renders the 'add_route.html' template with the form.
+    """
     if request.method == 'POST':
         form = AirportRouteForm(request.POST)
         if form.is_valid():
@@ -18,7 +35,21 @@ def add_route(request):
         form = AirportRouteForm()
     return render(request, 'routes/add_route.html', {'form': form})
 
+
 def nth_node(request):
+    """
+    Handle search form for finding the Nth left or right node of an airport.
+
+    For POST requests:
+        - Validate the form inputs (airport code, direction, n).
+        - Call utility function `find_nth_node` to traverse n levels in the chosen direction.
+        - Prepare a result message or failure message.
+
+    For GET requests:
+        - Show empty form.
+
+    Render 'nth_node.html' with form and result.
+    """
     result = None
     if request.method == 'POST':
         form = NthNodeSearchForm(request.POST)
@@ -35,7 +66,21 @@ def nth_node(request):
         form = NthNodeSearchForm()
     return render(request, 'routes/nth_node.html', {'form': form, 'result': result})
 
+
 def longest_node(request):
+    """
+    Find and display the outgoing route with the longest duration from a specified airport.
+
+    For POST requests:
+        - Retrieve the airport code from form input.
+        - Use the utility function `find_longest_node` to get the longest direct child.
+        - Prepare success or failure message.
+
+    For GET requests:
+        - No result is shown.
+
+    Renders the 'longest_node.html' template with result.
+    """
     result = None
     if request.method == 'POST':
         code = request.POST.get('airport_code')
@@ -47,7 +92,21 @@ def longest_node(request):
                 result = "No outgoing routes found or airport missing."
     return render(request, 'routes/longest_node.html', {'result': result})
 
+
 def shortest_node(request):
+    """
+    Find the shortest path between two airports using multi-hop Dijkstra algorithm.
+
+    For POST requests:
+        - Validate the shortest node search form (from_airport and to_airport codes).
+        - Use utility function `find_shortest_route_between` to compute path and distance.
+        - Format the path and distance in a readable message or failure message.
+
+    For GET requests:
+        - Display empty form with no result.
+
+    Renders 'shortest_node.html' with form and result.
+    """
     result = None
     form = ShortestNodeSearchForm(request.POST or None)
     if request.method == 'POST' and form.is_valid():

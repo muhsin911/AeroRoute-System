@@ -1,24 +1,20 @@
-"""
-URL configuration for flight_routes project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
+# Define the main URL patterns for this Django project
 urlpatterns = [
+    # The Django admin site available at /admin/
     path("admin/", admin.site.urls),
+
+    # All routes for the 'routes' app, included and namespaced under ''
+    # This means the root URL ('/') loads 'routes.urls' and all its definitions
     path('', include('routes.urls', namespace='routes')),
 ]
+
+# In development mode, append additional url patterns to serve user-uploaded media files
+# This enables requests to MEDIA_URL (like /media/filename.jpg) to serve files from MEDIA_ROOT
+# (Production should use a proper web server for this instead)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

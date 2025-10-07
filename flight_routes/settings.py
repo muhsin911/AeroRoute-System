@@ -67,6 +67,7 @@ TEMPLATES = [
             "context_processors": [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
+                    "django.template.context_processors.media",
                 "django.contrib.messages.context_processors.messages",
             ],
         },
@@ -124,6 +125,10 @@ USE_TZ = True
 STATIC_URL = "/static/"
 # Collected static files destination (useful for Docker/production)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# Media files (user uploads)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -1,0 +1,25 @@
+{% extends 'routes/base.html' %}
+
+{% block title %}Add Route - AeroRoute{% endblock %}
+
+{% block content %}
+<style>
+  .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+  .form-actions { margin-top: 1rem; }
+</style>
+
+<div class="card">
+  <h2>Add Route</h2>
+  <p>Use this form to add a directed route between two airports.</p>
+  {% if form %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-actions">
+        <button class="cta-button" type="submit">Add Route</button>
+      </div>
+    </form>
+  {% endif %}
+</div>
+
+{% endblock %}
