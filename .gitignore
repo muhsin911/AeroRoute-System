@@ -1,0 +1,10 @@
+__pycache__/
+**/__pycache__/
+*.pyc
+.venv/
+venv/
+## .vscode/ removed to allow tracking of VS Code settings
+*.log
+*.pot
+*.sqlite3
+__pycache__/
