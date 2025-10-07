@@ -8,3 +8,8 @@ services:
     ports:
       - "8000:8000"
       - "5678:5678"
+    environment:
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@gmail.com
+      - DJANGO_SUPERUSER_PASSWORD=admin
+    restart: unless-stopped
