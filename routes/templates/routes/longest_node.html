@@ -2,8 +2,15 @@
 
 {% block content %}
   <h1>Longest Node</h1>
-  <p>Placeholder for longest node result.</p>
+  <p>Find the outgoing route with the maximum duration from a given airport.</p>
+  <form method="post">
+    {% csrf_token %}
+    <div style="display:flex;gap:0.5rem;align-items:center;">
+      <input id="airport_code" name="airport_code" type="text" maxlength="10" placeholder="Airport code e.g. JFK" required />
+      <button class="cta-button" type="submit">Find</button>
+    </div>
+  </form>
   {% if result %}
-    <p>{{ result }}</p>
+    <div style="margin-top:1rem;">{{ result }}</div>
   {% endif %}
 {% endblock %}

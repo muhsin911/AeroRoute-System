@@ -1,16 +1,25 @@
 {% extends 'routes/base.html' %}
 
+{% block title %}Shortest Route - SkyRoutes{% endblock %}
+
 {% block content %}
-  <h1>Shortest Route</h1>
-  <p>Placeholder for shortest route search.</p>
+<style>
+  .card { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+</style>
+
+<div class="card">
+  <h2>Shortest Route</h2>
+  <p>Find the shortest path between two airports (multi-hop).</p>
   {% if form %}
     <form method="post">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">Search</button>
+      <button class="cta-button" type="submit">Search</button>
     </form>
   {% endif %}
   {% if result %}
-    <p>{{ result }}</p>
+    <div style="margin-top:1rem;">{{ result }}</div>
   {% endif %}
+</div>
+
 {% endblock %}

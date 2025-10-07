@@ -1,24 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <title>Flight Routes</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}SkyRoutes - Flight Routes{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha512-NhSC+4m6k3jG8v+2+Yf1eFQ8+v3e2qO3lqQ/5s6mG9K5e2b0QK5f5g2f/2p3K1Y" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; color:#222; background:#f7fafc; }
+    .container { width: 96%; max-width: 1100px; margin: 0 auto; padding: 2rem 0; }
+    header { display:flex; align-items:center; justify-content:space-between; padding:1rem 0; }
+    .brand { font-weight:800; font-size:1.4rem; color:#333; text-decoration:none; }
+    nav a { margin-left:1rem; color:#4a5568; text-decoration:none; font-weight:600 }
+    nav a:hover { color:#2b6cb0 }
+    .flash { background:#e6fffa; border-left:4px solid #38b2ac; padding:0.75rem 1rem; margin-bottom:1rem; }
+    main { padding: 1rem 0 4rem 0; }
+    footer { text-align:center; color:#718096; padding:2rem 0; font-size:0.9rem; }
+  </style>
 </head>
 <body>
-  <h1>Flight Routes System</h1>
-  <nav>
-    <a href="{% url 'routes:home' %}">Home</a> |
-    <a href="{% url 'routes:add_route' %}">Add Route</a> |
-    <a href="{% url 'routes:nth_node' %}">Nth Node</a> |
-    <a href="{% url 'routes:longest_node' %}">Longest Node</a> |
-    <a href="{% url 'routes:shortest_node' %}">Shortest Node</a>
-  </nav>
-  <hr>
-  {% if messages %}
-    {% for message in messages %}
-      <div>{{ message }}</div>
-    {% endfor %}
-  {% endif %}
-  {% block content %}{% endblock %}
+  <div class="container">
+    <header>
+      <a class="brand" href="{% url 'routes:home' %}">SkyRoutes</a>
+      <nav>
+        <a href="{% url 'routes:add_route' %}">Add Route</a>
+        <a href="{% url 'routes:nth_node' %}">Nth Node</a>
+        <a href="{% url 'routes:longest_node' %}">Longest</a>
+        <a href="{% url 'routes:shortest_node' %}">Shortest</a>
+      </nav>
+    </header>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      © {{ now|date:"Y" }} SkyRoutes · Built for testing and demo purposes
+    </footer>
+  </div>
 </body>
 </html>
