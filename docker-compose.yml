@@ -1,13 +1,10 @@
-# flight_routes/docker-compose.yml
+version: '3.8'
+
 services:
   web:
     build: .
-    command: bash -c "python manage.py migrate --noinput && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
     ports:
       - "8000:8000"
       - "5678:5678"
-    volumes:
-      - .:/code
-      - ./media:/code/media
-    environment:
-      - PYTHONUNBUFFERED=1
